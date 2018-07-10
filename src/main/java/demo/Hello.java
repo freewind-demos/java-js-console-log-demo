@@ -22,11 +22,12 @@ public class Hello {
 
     private static void hello(ScriptEngine engine, Invocable inv) throws Exception {
         engine.eval(contentOf(new File("./hello.js")));
-        String greeting = (String) inv.invokeFunction("hello", "JS in Java");
-        System.out.println(greeting);
+        engine.put("console", new Console());
+        inv.invokeFunction("hello", "JS in Java");
     }
 
     private static String contentOf(File file) throws IOException {
         return FileUtils.readFileToString(file, Charset.defaultCharset());
     }
+
 }
